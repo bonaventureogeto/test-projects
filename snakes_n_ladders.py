@@ -1,15 +1,10 @@
 import random
-import time
-import sys
 
 winning_pos = 100
 winner = None
 ladders = {1:38,4:14,9:31,21:43,28:84,51:67,72:91,80:99}
 snakes = {17:7,54:34,62:19,64:60,87:36,93:73,95:75,98:79}
 players = []
-# global initial_pos
-# global current_pos
-global final_pos
 
 def welcome_msg():
     message = """
@@ -85,25 +80,6 @@ def player_names():
         return player_1,player_2
 
 
-# def player_names():
-#     player_1 = None
-#     while not player_1:
-#         player_1 = input("Enter Player 1 name: ").strip()
-#         players.append(player_1)
-#     player_2 = None
-#     while not player_2:
-#         player_2 = input("Enter Player 2 name: ").strip()
-#         players.append(player_2)
-#     player_3 = None
-#     while not player_3:
-#         player_3 = input("Enter Player 3 name: ").strip()
-#         players.append(player_3)
-#     player_4 = None
-#     while not player_4:
-#         player_4 = input("Enter Player 4 name: ").strip()
-#         players.append(player_4)
-#     return player_1,player_2,player_3,player_4
-
 def dice_roll():
     dice_value = random.randint(1,6)
     print("You've picked: " + str(dice_value))
@@ -134,48 +110,20 @@ def get_pos(player_name,current_pos,dice_value):
 
     return final_pos
 
-
-def begin():
+def play_game():
     welcome_msg()
-    players = player_names()
-    # if winner is not None:
-    #     break
+    player_names()
+    player_starting_pos = 0
+    while player_starting_pos < 100:
 
-    player_1_starting_pos = 0
-    player_2_starting_pos = 0
-    player_3_starting_pos = 0
-    player_4_starting_pos = 0
-
-    while winner is None:
-        input_1 = input(player_1 + " Hit enter to roll dice: ")
-        print("Rolling dice: ")
-        dice_value = dice_roll()
-        print(player_1 + " moving...")
-        player_1_starting_pos = get_pos(player_1,player_1_starting_pos,dice_value)
-        print(player_1,player_1_starting_pos)
-        
-
-        input_2 = input(player_2 + " Hit enter to roll dice: ")
-        print("Rolling dice: ")
-        dice_value = dice_roll()
-        print(player_2 + " moving...")
-        player_2_starting_pos = get_pos(player_2,player_2_starting_pos,dice_value)
-        print(player_2,player_2_starting_pos)
-
-        input_3 = input(player_3 + " Hit enter to roll dice: ")
-        print("Rolling dice: ")
-        dice_value = dice_roll()
-        print(player_3 + " moving...")
-        player_3_starting_pos = get_pos(player_3,player_3_starting_pos,dice_value)
-        print(player_3,player_3_starting_pos)
-
-        input_4 = input(player_4 + " Hit enter to roll dice: ")
-        print("Rolling dice: ")
-        dice_value = dice_roll()
-        print(player_4 + " moving...")
-        player_4_starting_pos = get_pos(player_4,player_4_starting_pos,dice_value)
-        print(player_4,player_4_starting_pos)
-
-begin()    
-
+        for player in players:
+            input_ = input(player + " Hit enter to roll dice: ")
+            print("Rolling dice: ")
+            dice_value = dice_roll()
+            print(player + " moving...")
+            player_starting_pos = get_pos(player,player_starting_pos,dice_value)
+            print(player,player_starting_pos)
+        if player_starting_pos >= 100:
+            break
+           
 
